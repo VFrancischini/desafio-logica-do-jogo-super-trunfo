@@ -2,6 +2,8 @@
 
 Este desafio é uma continuação do desafio do tema anterior, onde você desenvolveu o cadastro das cartas.
 
+**Desafio anterior:** https://github.com/Cursos-TI/desafio-cadastro-das-cartas-no-super-trunfo-VFrancischini
+
 
 ## 🎮 Nível Novato: Comparar duas cartas
 
