@@ -6,7 +6,7 @@ int main() {
     // Terminadas com 2 refere-se a Segunda Cidade
     char nomeCidade1[20], codCarta1[4], estado1, nomeCidade2[20], codCarta2[4], estado2;
     char comparacaoPop, comparacaoArea, comparacaoPIB, comparacaoPtTuristicos, comparacaoDensPop, comparacaoPIBPerCap, comparacaoSuperPoder;
-    int qtdPontosTuristicos1, qtdPontosTuristicos2, escolhaComparacao;
+    int qtdPontosTuristicos1, qtdPontosTuristicos2, primeiraComparacao, segundaComparacao, pontuacaoCarta1, pontuacaoCarta2;
     unsigned long int populacao1, populacao2;
     float pib1, area1, densidadePop1, pibPerCapita1, superPoder1, pib2, area2, densidadePop2, pibPerCapita2, superPoder2;
     long double inversoDensidadePop1, inversoDensidadePop2;
@@ -109,113 +109,391 @@ int main() {
     printf("PIB per Capita: %.2f reais\n", pibPerCapita2);
 
     // Escolha de comparação de cartas
-    printf("\nQual atributo você deseja comparar:\n");
+    printf("\nEscolha a primeira comparação:\n");
     printf("1 - População\n");
     printf("2 - Área\n");
     printf("3 - PIB\n");
     printf("4 - Número de pontos turísticos\n");
     printf("5 - Densidade demográfica\n");
     printf("Informe sua escolha: ");
-    scanf("%d", &escolhaComparacao);
+    scanf("%d", &primeiraComparacao);
 
-    // Comparação de cartas
-    // 1 - Carta 1 ganha
-    // 0 - Carta 2 ganha
-    // 2 - Empate
-    switch (escolhaComparacao)
+    // Inicializando pontuação zerada
+    pontuacaoCarta1 = 0;
+    pontuacaoCarta2 = 0;
+
+    // Comparação da primeira escolha
+    // Vencedor pontua (+1)
+    // Empate niguem pontua
+    switch (primeiraComparacao)
     {
     case 1:
-        if (populacao1 == populacao2)
+        if (populacao1 > populacao2)
         {
-            comparacaoPop = 2;
-        }
-        else
+            comparacaoPop = 1;
+            pontuacaoCarta1++;
+        } else
         {
-            if (populacao1 > populacao2)
-            {
-                comparacaoPop = 1;
-            } else
-            {
-                comparacaoPop = 0;
-            }
+            comparacaoPop = 0;
+            pontuacaoCarta2++;
         }
         break;
     case 2:
-        if (area1 == area2)
+        if (area1 > area2)
         {
-            comparacaoArea = 2;
-        }
-        else
+            comparacaoArea = 1;
+            pontuacaoCarta1++;
+        } else
         {
-            if (area1 > area2)
-            {
-                comparacaoArea = 1;
-            } else
-            {
-                comparacaoArea = 0;
-            }
+            comparacaoArea = 0;
+            pontuacaoCarta2++;
         }
         break;
     case 3:
-        if (pib1 == pib2)
+        if (pib1 > pib2)
         {
-            comparacaoPIB = 2;
-        }
-        else
+            comparacaoPIB = 1;
+            pontuacaoCarta1++;
+        } else
         {
-            if (pib1 > pib2)
-            {
-                comparacaoPIB = 1;
-            } else
-            {
-                comparacaoPIB = 0;
-            }
+            comparacaoPIB = 0;
+            pontuacaoCarta2++;
         }
         break;
     case 4:
-        if (qtdPontosTuristicos1 == qtdPontosTuristicos2)
+        if (qtdPontosTuristicos1 > qtdPontosTuristicos2)
         {
-            comparacaoPtTuristicos = 2;
+            comparacaoPtTuristicos = 1;
+            pontuacaoCarta1++;
         }
         else
         {
+            comparacaoPtTuristicos = 0;
+            pontuacaoCarta2++;
+        }
+        break;
+    case 5:
+        if (densidadePop1 < densidadePop2)
+        {
+            comparacaoDensPop = 1;
+            pontuacaoCarta1++;
+        }
+        else
+        {
+            comparacaoDensPop = 0;
+            pontuacaoCarta2++;
+        }
+        break;
+    }
+
+    // Comparação da segunda escolha
+    // Lógica para retirar a opção escolhida anteriormente
+    switch (primeiraComparacao)
+    {
+    case 1:
+        printf("\nEscolha a primeira comparação:\n");
+        printf("1 - Área\n");
+        printf("2 - PIB\n");
+        printf("3 - Número de pontos turísticos\n");
+        printf("4 - Densidade demográfica\n");
+        printf("Informe sua escolha: ");
+        scanf("%d", &segundaComparacao);
+
+        switch (segundaComparacao)
+        {
+        case 1:
+            if (area1 > area2)
+            {
+                comparacaoArea = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoArea = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 2:
+            if (pib1 > pib2)
+            {
+                comparacaoPIB = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoPIB = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 3:
             if (qtdPontosTuristicos1 > qtdPontosTuristicos2)
             {
                 comparacaoPtTuristicos = 1;
+                pontuacaoCarta1++;
             }
             else
             {
                 comparacaoPtTuristicos = 0;
+                pontuacaoCarta2++;
             }
-        }
-        break;
-    case 5:
-        if (densidadePop1 == densidadePop2)
-        {
-            comparacaoDensPop = 2;
-        }
-        else
-        {
+            break;
+        case 4:
             if (densidadePop1 < densidadePop2)
             {
                 comparacaoDensPop = 1;
+                pontuacaoCarta1++;
             }
             else
             {
                 comparacaoDensPop = 0;
+                pontuacaoCarta2++;
             }
+            break;
+        }
+        break;
+    case 2:
+        printf("\nEscolha a primeira comparação:\n");
+        printf("1 - População\n");
+        printf("2 - PIB\n");
+        printf("3 - Número de pontos turísticos\n");
+        printf("4 - Densidade demográfica\n");
+        printf("Informe sua escolha: ");
+        scanf("%d", &segundaComparacao);
+
+        switch (segundaComparacao)
+        {
+        case 1:
+            if (populacao1 > populacao2)
+            {
+                comparacaoPop = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoPop = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 2:
+            if (pib1 > pib2)
+            {
+                comparacaoPIB = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoPIB = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 3:
+            if (qtdPontosTuristicos1 > qtdPontosTuristicos2)
+            {
+                comparacaoPtTuristicos = 1;
+                pontuacaoCarta1++;
+            }
+            else
+            {
+                comparacaoPtTuristicos = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 4:
+            if (densidadePop1 < densidadePop2)
+            {
+                comparacaoDensPop = 1;
+                pontuacaoCarta1++;
+            }
+            else
+            {
+                comparacaoDensPop = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        }
+        break;
+    case 3:
+        printf("\nEscolha a primeira comparação:\n");
+        printf("1 - População\n");
+        printf("2 - Área\n");
+        printf("3 - Número de pontos turísticos\n");
+        printf("4 - Densidade demográfica\n");
+        printf("Informe sua escolha: ");
+        scanf("%d", &segundaComparacao);
+
+        switch (segundaComparacao)
+        {
+        case 1:
+            if (populacao1 > populacao2)
+            {
+                comparacaoPop = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoPop = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 2:
+            if (area1 > area2)
+            {
+                comparacaoArea = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoArea = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 3:
+            if (qtdPontosTuristicos1 > qtdPontosTuristicos2)
+            {
+                comparacaoPtTuristicos = 1;
+                pontuacaoCarta1++;
+            }
+            else
+            {
+                comparacaoPtTuristicos = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 4:
+            if (densidadePop1 < densidadePop2)
+            {
+                comparacaoDensPop = 1;
+                pontuacaoCarta1++;
+            }
+            else
+            {
+                comparacaoDensPop = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        }
+        break;
+    case 4:
+        printf("\nEscolha a primeira comparação:\n");
+        printf("1 - População\n");
+        printf("2 - Área\n");
+        printf("3 - PIB\n");
+        printf("4 - Densidade demográfica\n");
+        printf("Informe sua escolha: ");
+        scanf("%d", &segundaComparacao);
+
+        switch (segundaComparacao)
+        {
+        case 1:
+            if (populacao1 > populacao2)
+            {
+                comparacaoPop = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoPop = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 2:
+            if (area1 > area2)
+            {
+                comparacaoArea = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoArea = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 3:
+            if (pib1 > pib2)
+            {
+                comparacaoPIB = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoPIB = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 4:
+            if (densidadePop1 < densidadePop2)
+            {
+                comparacaoDensPop = 1;
+                pontuacaoCarta1++;
+            }
+            else
+            {
+                comparacaoDensPop = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        }
+        break;
+    case 5:
+        printf("\nEscolha a primeira comparação:\n");
+        printf("1 - População\n");
+        printf("2 - Área\n");
+        printf("3 - PIB\n");
+        printf("4 - Número de pontos turísticos\n");
+        printf("Informe sua escolha: ");
+        scanf("%d", &segundaComparacao);
+
+        switch (segundaComparacao)
+        {
+        case 1:
+            if (populacao1 > populacao2)
+            {
+                comparacaoPop = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoPop = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 2:
+            if (area1 > area2)
+            {
+                comparacaoArea = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoArea = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 3:
+            if (pib1 > pib2)
+            {
+                comparacaoPIB = 1;
+                pontuacaoCarta1++;
+            } else
+            {
+                comparacaoPIB = 0;
+                pontuacaoCarta2++;
+            }
+            break;
+        case 4:
+            if (qtdPontosTuristicos1 > qtdPontosTuristicos2)
+            {
+                comparacaoPtTuristicos = 1;
+                pontuacaoCarta1++;
+            }
+            else
+            {
+                comparacaoPtTuristicos = 0;
+                pontuacaoCarta2++;
+            }
+            break;
         }
         break;
     }
 
     // Exibição da comparação de Cartas
-    printf("\nComparação de Cartas:\n");
+    printf("\nResultado da Comparação de Cartas:\n");
     printf("%s VS %s\n\n", nomeCidade1, nomeCidade2);
-    switch (escolhaComparacao)
+
+    switch (primeiraComparacao)
     {
     case 1:
         printf("O atributo a ser comparado é População\n");
-        if (comparacaoPop == 2)
+        if (pontuacaoCarta1 == pontuacaoCarta2)
         {
             printf("Valores:\n");
             printf("%s: %lu X %s: %lu\n", nomeCidade1, populacao1, nomeCidade2, populacao2);
